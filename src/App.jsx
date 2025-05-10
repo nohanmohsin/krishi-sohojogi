@@ -1,6 +1,5 @@
 import "./App.css";
-import ImageUploader from "./components/ImageUploader";
-
+import { Link } from "react-router-dom";
 function App() {
   return (
     <div>
@@ -8,6 +7,7 @@ function App() {
         কৃষি সহযোগী <br />
       </h1>
       <p>আপনার গাছের যাবতীয় সকল চিকিৎসা</p>
+      <Link to={"/doctor"}>ডাক্তার দেখান</Link>
     </div>
   );
 }
