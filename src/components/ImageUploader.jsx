@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { createUserContent, createPartFromUri, Type } from "@google/genai";
 import { ai } from "../util/aiFunctions";
+import { AIResponseContext } from "../contexts/AIResponseContext";
+import { DoctorImageContext } from "../contexts/doctorImageContext";
 const ImageUploader = () => {
-  const [image, setImage] = useState(null);
+  const { image, setImage } = useContext(DoctorImageContext);
   // const [status, setStatus] = useState("idle");
-
+  const { AIResponse, setAIResponse } = useContext(AIResponseContext);
+  if (!image) {
+    console.log(image);
+  }
   function handleImageChange(e) {
     if (e.target.files) {
       setImage(e.target.files[0]);
@@ -23,14 +28,14 @@ const ImageUploader = () => {
       });
       console.log(imgFile.uri);
       const response = await ai.models.generateContent({
-        model: "gemini-2.0-flash",
+        model: "gemini-2.5-flash-preview-04-17",
         contents: createUserContent([
           createPartFromUri(imgFile.uri, imgFile.mimeType),
           "",
         ]),
         config: {
           systemInstruction:
-            "only generate cures and remedies for ill plants. Return a false in diseaseDetected if you see any image that doesn't resemble a plant or the plant seems to be healthy. Try your best to generate the text in Bangla. diseaseRemedyAudioScript will also be in Bangla but with English letters keep the bangla wording very casual and phonetically sound them out in the audio script. make sure the script for audio version of the disease remedy is the same size as the diseaseRemedy",
+            "you are an expert botanist. generate concise but complete cure for ill plants and its diseases. only generate and remedies for ill plants. Return a false in diseaseDetected if you see any image that doesn't resemble a plant or the plant seems to be healthy. Try your best to generate the text in Bangla. diseaseTreatmentAudioScript will also be in Bangla but with English letters keep the bangla wording very casual and phonetically sound them out in the audio script. make sure the script for audio version of the disease treatment is the same size as the diseaseTreatment",
           responseMimeType: "application/json",
           responseSchema: {
             type: Type.OBJECT,
@@ -42,15 +47,15 @@ const ImageUploader = () => {
                 type: Type.BOOLEAN,
               },
               treeDisease: {
-                type: Type.ARRAY,
-                items: {
-                  type: Type.STRING,
-                },
+                type: Type.STRING,
               },
               diseaseRemedy: {
                 type: Type.STRING,
               },
               diseaseRemedyAudioScript: {
+                type: Type.STRING,
+              },
+              diseaseInformation: {
                 type: Type.STRING,
               },
             },
@@ -60,17 +65,20 @@ const ImageUploader = () => {
               "diseaseDetected",
               "diseaseRemedy",
               "diseaseRemedyAudioScript",
+              "diseaseInformation",
             ],
           },
         },
       });
-      console.log(response.text);
+      setAIResponse(response);
     }
   }
 
   return (
-    <div>
-      <label htmlFor="imageuploader">upload an image</label>
+    <div className="image-uploader">
+      <label htmlFor="imageuploader" className="primary-btn">
+        ছবি সিলেক্ট করুন
+      </label>
       <input
         id="imageuploader"
         type="file"
@@ -78,7 +86,13 @@ const ImageUploader = () => {
         accept="image/*"
         hidden
       />
-      <button onClick={uploadImage}>upload Image</button>
+      {image ? (
+        <button onClick={uploadImage} className="primary-btn">
+          সমাধান
+        </button>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
