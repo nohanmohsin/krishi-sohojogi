@@ -7,7 +7,7 @@ function App() {
     <div className="home">
       <h1 className="landing-heading">কৃষি সহযোগী</h1>
       <div className="logomark">
-        <h3 style={{ fontWeight: 200 }}>powered by</h3>
+        <h3 style={{ fontWeight: 200 }}>Brought to you by</h3>
         <img src={schoolLogo} alt="" className="school-logo" />
       </div>
       <h4>আপনার কৃষির যাবতীয় সকল সুবিধা কৃত্রিম বুদ্ধিমত্তার সাহায্যে</h4>

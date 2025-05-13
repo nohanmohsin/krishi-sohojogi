@@ -5,6 +5,7 @@ import { DoctorImageContext } from "../contexts/doctorImageContext";
 const DiseaseDescription = () => {
   const { ResText } = useContext(AIResponseContext);
   const { image } = useContext(DoctorImageContext);
+
   if (!ResText.diseaseDetected) {
     alert(
       " দুঃখিত কোন রোগাক্রান্ত উদ্ভিদ ডিটেক্ট হয়নি। অনুগ্রহ করে আবার ছবি দিন"

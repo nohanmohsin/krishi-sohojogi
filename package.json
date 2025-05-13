@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@google/genai": "^0.13.0",
+    "@speechify/api": "^1.0.0",
+    "axios": "^1.9.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.0"
