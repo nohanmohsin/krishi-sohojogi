@@ -22,6 +22,13 @@ function App() {
           <button className="primary-btn">ডাক্তার দেখান</button>
         </Link>
       </div>
+      <div className="container card">
+        <h2>বাজারি</h2>
+        <p>আপনার ফসলের প্রকৃত বাজার মূল্য জেনে নিন, বর্তমান বাজারের ভিত্তিতে</p>
+        <Link to={"/market-prices"}>
+          <button className="primary-btn">ফসলের মূল্য বের করুন</button>
+        </Link>
+      </div>
     </div>
   );
 }

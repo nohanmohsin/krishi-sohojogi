@@ -20,6 +20,7 @@ const DoctorChat = () => {
     },
   });
   const sendAudioTranscript = async () => {
+    console.log(currentAudioTranscript);
     setChatHistory((oldHistory) => [
       ...oldHistory,
       {

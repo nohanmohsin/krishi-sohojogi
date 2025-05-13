@@ -6,6 +6,7 @@ import App from "./App.jsx";
 import Doctor from "./pages/Doctor.jsx";
 import DoctorChat from "./pages/DoctorChat.jsx";
 import AudioRecorderComp from "./components/AudioRecorderComp.jsx";
+import PricePage from "./pages/PricePage.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: "/audio",
     element: <AudioRecorderComp />,
+  },
+  {
+    path: "/market-prices",
+    element: <PricePage />,
   },
 ]);
 createRoot(document.getElementById("root")).render(
