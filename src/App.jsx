@@ -2,6 +2,7 @@ import "./App.css";
 import { Link } from "react-router-dom";
 import schoolLogo from "../src/assets/school-logo.jpeg";
 import doctorLogo from "../src/assets/doctor-logo.svg";
+import priceCheckerLogo from "../src/assets/Frame 2.svg";
 function App() {
   return (
     <div className="home">
@@ -23,6 +24,12 @@ function App() {
         </Link>
       </div>
       <div className="container card">
+        <img
+          src={priceCheckerLogo}
+          alt=""
+          width={100}
+          className="price-checker-logo"
+        />
         <h2>বাজারি</h2>
         <p>আপনার ফসলের প্রকৃত বাজার মূল্য জেনে নিন, বর্তমান বাজারের ভিত্তিতে</p>
         <Link to={"/market-prices"}>

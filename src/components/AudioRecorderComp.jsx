@@ -42,11 +42,15 @@ const AudioRecorderComp = ({ setAudioBlob }) => {
   };
 
   return (
-    <div>
+    <div className="recorder-wrapper">
       {isRecording ? (
-        <button onClick={stopRecording}>থামুন</button>
+        <button onClick={stopRecording} className="primary-btn">
+          থামুন
+        </button>
       ) : (
-        <button onClick={startRecording}>কথা বলুন</button>
+        <button onClick={startRecording} className="primary-btn">
+          কথা বলুন
+        </button>
       )}
     </div>
   );
