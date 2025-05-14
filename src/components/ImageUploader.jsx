@@ -5,8 +5,10 @@ import { AIResponseContext } from "../contexts/AIResponseContext";
 import { DoctorImageContext } from "../contexts/doctorImageContext";
 const ImageUploader = () => {
   const { image, setImage } = useContext(DoctorImageContext);
+
   // const [status, setStatus] = useState("idle");
-  const { AIResponse, setAIResponse } = useContext(AIResponseContext);
+  const { AIResponse, setAIResponse, setLoading } =
+    useContext(AIResponseContext);
   if (!image) {
     console.log(image);
   }
@@ -18,6 +20,7 @@ const ImageUploader = () => {
   }
 
   async function uploadImage() {
+    setLoading(true);
     if (image) {
       const imgBlob = await fetch(URL.createObjectURL(image)).then((r) =>
         r.blob()
@@ -28,7 +31,7 @@ const ImageUploader = () => {
       });
       console.log(imgFile.uri);
       const response = await ai.models.generateContent({
-        model: "gemini-2.0-flash",
+        model: "gemini-1.5-flash",
         contents: createUserContent([
           createPartFromUri(imgFile.uri, imgFile.mimeType),
           "",
@@ -71,6 +74,7 @@ const ImageUploader = () => {
         },
       });
       setAIResponse(response);
+      setLoading(false);
     }
   }
 

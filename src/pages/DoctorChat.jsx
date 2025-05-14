@@ -14,7 +14,7 @@ const DoctorChat = () => {
   const [audioBlob, setAudioBlob] = useState(null);
   const [currentAudioTranscript, setCurrentAudioTranscript] = useState("");
   const chat = ai.chats.create({
-    model: "gemini-2.0-flash",
+    model: "gemini-1.5-flash",
     history: chatHistory,
     config: {
       systemInstruction: instructions,
@@ -63,7 +63,7 @@ const DoctorChat = () => {
       });
 
       const result = await ai.models.generateContent({
-        model: "gemini-2.0-flash",
+        model: "gemini-1.5-flash",
         contents: createUserContent([
           createPartFromUri(myfile.uri, myfile.mimeType),
           "Generate a transcript of the speech.",

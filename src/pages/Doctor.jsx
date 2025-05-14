@@ -9,7 +9,7 @@ const Doctor = () => {
   const [image, setImage] = useState(null);
   const [AIResponse, setAIResponse] = useState(null);
   const [ResText, setResText] = useState(null);
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     if (AIResponse) {
       setResText(JSON.parse(AIResponse.text));
@@ -19,8 +19,16 @@ const Doctor = () => {
     <main className="doctor-page">
       <DoctorImageContext.Provider value={{ image, setImage }}>
         <AIResponseContext.Provider
-          value={{ AIResponse, setAIResponse, ResText, setResText }}
+          value={{
+            AIResponse,
+            setAIResponse,
+            ResText,
+            setResText,
+            loading,
+            setLoading,
+          }}
         >
+          {loading && <h1>Loading...</h1>}
           {ResText ? (
             <DiseaseDescription />
           ) : (

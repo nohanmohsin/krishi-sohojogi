@@ -23,7 +23,7 @@ const PricePage = () => {
         config: { mimeType: image.type },
       });
       const response = await ai.models.generateContent({
-        model: "gemini-2.0-flash",
+        model: "gemini-1.5-flash",
         contents: createUserContent([
           createPartFromUri(imgFile.uri, imgFile.mimeType),
           "",
@@ -61,10 +61,10 @@ const PricePage = () => {
     }
   };
   return (
-    <main>
+    <main className="price-page-main">
       {ResText ? (
         <>
-          <h2>ফসল বিশ্লেষণ</h2>
+          <h2 style={{ textAlign: "center" }}>ফসল বিশ্লেষণ</h2>
           <img
             src={URL.createObjectURL(image)}
             alt=""
@@ -74,28 +74,58 @@ const PricePage = () => {
                 : "red-confidence-img"
             }`}
           />
-          <div>
+          <div className="price-wrapper">
             <div className="price">
-              <h1 className="product-price">৳{ResText.productPrice}</h1>
+              <h1
+                className={`product-price ${
+                  ResText.productRating > 3
+                    ? "green-confidence-text"
+                    : "red-confidence-text"
+                }`}
+              >
+                ৳{ResText.productPrice}
+              </h1>
               <span>/টন</span>
             </div>
             <span
               className={
                 ResText.productRating > 3
-                  ? "green-confidence"
-                  : "red-confidence"
+                  ? "green-confidence-text"
+                  : "red-confidence-text"
               }
             >
               {ResText.productRating}/5
             </span>
           </div>
+          <div
+            className="crop-description"
+            style={{
+              backgroundColor:
+                ResText.productRating > 3
+                  ? "rgba(4, 248, 4, 0.2)"
+                  : "rgb(255 2 2 / 44%)",
+            }}
+          >
+            <h3>ফসল তত্ত</h3>
+            <div className="foshol-name desc-item">
+              <span>ফসল</span>
+              <span style={{ fontWeight: 900 }}>{ResText.productName}</span>
+            </div>
+            <div className="desc-item">
+              <span>গুনাগুন</span>
+              <span style={{ fontWeight: 900 }}>
+                {ResText.productRating > 3 ? "অগ্রহণযোগ্য" : "উৎকৃষ্ট"}
+              </span>
+            </div>
+          </div>
           <div className="rating-description">
-            <h2>রেটিং</h2>
+            <h2 style={{ marginBottom: "10px" }}>রেটিং</h2>
             {ResText.RatingDescription}
           </div>
         </>
       ) : (
-        <>
+        <div className="bazari-image-selector">
+          <h1></h1>
           <label htmlFor="imageuploader" className="primary-btn">
             ছবি সিলেক্ট করুন
           </label>
@@ -106,8 +136,12 @@ const PricePage = () => {
             accept="image/*"
             hidden
           />
-          <button onClick={checkPrice}>ফসলের ছবি দিন</button>
-        </>
+          {image && (
+            <button onClick={checkPrice} className="primary-btn">
+              +
+            </button>
+          )}
+        </div>
       )}
     </main>
   );

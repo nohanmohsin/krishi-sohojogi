@@ -5,7 +5,6 @@ import { DoctorImageContext } from "../contexts/doctorImageContext";
 const DiseaseDescription = () => {
   const { ResText } = useContext(AIResponseContext);
   const { image } = useContext(DoctorImageContext);
-
   if (!ResText.diseaseDetected) {
     alert(
       " দুঃখিত কোন রোগাক্রান্ত উদ্ভিদ ডিটেক্ট হয়নি। অনুগ্রহ করে আবার ছবি দিন"
@@ -14,7 +13,7 @@ const DiseaseDescription = () => {
   console.log(ResText);
   return (
     <div className="disease-description">
-      {ResText && (
+      {ResText ? (
         <>
           <img
             src={URL.createObjectURL(image)}
@@ -27,6 +26,8 @@ const DiseaseDescription = () => {
           <h3>করনীয়</h3>
           <p>{ResText.diseaseRemedy}</p>
         </>
+      ) : (
+        <p>Loading...</p>
       )}
     </div>
   );
