@@ -12,49 +12,13 @@ const DoctorChat = () => {
   const [chatHistory, setChatHistory] = useState([]);
   const [visibleChatHistory, setVisibleChatHistory] = useState([]);
   const [audioBlob, setAudioBlob] = useState(null);
-  const [currentAudioTranscript, setCurrentAudioTranscript] = useState("");
   const chat = ai.chats.create({
-    model: "gemini-1.5-flash",
+    model: "gemini-2.0-flash",
     history: chatHistory,
     config: {
       systemInstruction: instructions,
     },
   });
-  const sendAudioTranscript = async () => {
-    console.log(currentAudioTranscript);
-    setChatHistory([
-      ...chatHistory,
-      {
-        role: "user",
-        parts: [{ text: currentAudioTranscript }],
-      },
-    ]);
-    let res = await chat.sendMessage({
-      message: currentAudioTranscript,
-    });
-    if (res.text) {
-      setChatHistory([
-        ...chatHistory,
-        {
-          role: "model",
-          parts: [{ text: res.text }],
-        },
-      ]);
-      setVisibleChatHistory([
-        ...visibleChatHistory,
-        {
-          role: "user",
-          text: currentAudioTranscript,
-        },
-        {
-          role: "model",
-          text: res.text,
-        },
-      ]);
-    } else {
-      alert("something went wrong");
-    }
-  };
   useEffect(() => {
     const fetchTranscript = async () => {
       const myfile = await ai.files.upload({
@@ -63,19 +27,52 @@ const DoctorChat = () => {
       });
 
       const result = await ai.models.generateContent({
-        model: "gemini-1.5-flash",
+        model: "gemini-2.0-flash",
         contents: createUserContent([
           createPartFromUri(myfile.uri, myfile.mimeType),
           "Generate a transcript of the speech.",
         ]),
       });
-      setCurrentAudioTranscript(result.text);
       console.log(result.text);
+      if (result.text.length > 0) {
+        setChatHistory([
+          ...chatHistory,
+          {
+            role: "user",
+            parts: [{ text: result.text }],
+          },
+        ]);
+        let res = await chat.sendMessage({
+          message: result.text,
+        });
+        if (res.text) {
+          console.log("text res paisi send trans e");
+          setChatHistory([
+            ...chatHistory,
+            {
+              role: "model",
+              parts: [{ text: res.text }],
+            },
+          ]);
+          setVisibleChatHistory([
+            ...visibleChatHistory,
+            {
+              role: "user",
+              text: result.text,
+            },
+            {
+              role: "model",
+              text: res.text,
+            },
+          ]);
+        } else {
+          alert("something went wrong");
+        }
+      }
     };
     if (audioBlob) {
-      console.log("here");
+      console.log("here calling fetchtrans");
       fetchTranscript();
-      sendAudioTranscript();
     }
   }, [audioBlob]);
   useEffect(() => {

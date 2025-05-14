@@ -23,7 +23,7 @@ const PricePage = () => {
         config: { mimeType: image.type },
       });
       const response = await ai.models.generateContent({
-        model: "gemini-1.5-flash",
+        model: "gemini-2.0-flash",
         contents: createUserContent([
           createPartFromUri(imgFile.uri, imgFile.mimeType),
           "",
@@ -114,7 +114,7 @@ const PricePage = () => {
             <div className="desc-item">
               <span>গুনাগুন</span>
               <span style={{ fontWeight: 900 }}>
-                {ResText.productRating > 3 ? "অগ্রহণযোগ্য" : "উৎকৃষ্ট"}
+                {ResText.productRating > 3 ? "উৎকৃষ্ট" : "অগ্রহণযোগ্য"}
               </span>
             </div>
           </div>

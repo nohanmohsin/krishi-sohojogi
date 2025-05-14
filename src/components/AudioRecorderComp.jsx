@@ -2,14 +2,12 @@ import { useRef, useState } from "react";
 
 const AudioRecorderComp = ({ setAudioBlob }) => {
   const [isRecording, setIsRecording] = useState(false);
-  const [recordedBlob, setRecordedBlob] = useState(null);
+
   const mediaRecorder = useRef(null);
   const mediaStream = useRef(null);
   const chunks = useRef([]);
   const stopRecording = async () => {
     setIsRecording(false);
-    console.log(recordedBlob);
-
     if (mediaRecorder.current) {
       mediaRecorder.current.stop();
       mediaStream.current.getTracks().forEach((track) => {
@@ -31,7 +29,6 @@ const AudioRecorderComp = ({ setAudioBlob }) => {
       mediaRecorder.current.onstop = () => {
         console.log(chunks.current);
         const recordedObj = new Blob(chunks.current, { type: "audio/mp3" });
-        setRecordedBlob(recordedObj);
         setAudioBlob(recordedObj);
         chunks.current = [];
       };
