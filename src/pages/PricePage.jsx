@@ -236,6 +236,12 @@ const PricePage = () => {
                   </span>
                 </div>
               ))}
+            <button
+              className="primary-btn"
+              style={{ backgroundColor: "rgb(255 2 2)" }}
+            >
+              ফসল বিক্রয় করুন
+            </button>
           </div>
         </main>
       )}
