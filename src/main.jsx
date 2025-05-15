@@ -7,6 +7,7 @@ import Doctor from "./pages/Doctor.jsx";
 import DoctorChat from "./pages/DoctorChat.jsx";
 import AudioRecorderComp from "./components/AudioRecorderComp.jsx";
 import PricePage from "./pages/PricePage.jsx";
+import Fertilizer from "./pages/Fertilizer.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: "/market-prices",
     element: <PricePage />,
+  },
+  {
+    path: "/fertilizer-rec",
+    element: <Fertilizer />,
   },
 ]);
 createRoot(document.getElementById("root")).render(

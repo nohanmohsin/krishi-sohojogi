@@ -11,13 +11,15 @@
   },
   "dependencies": {
     "@google/genai": "^0.13.0",
+    "@radix-ui/react-select": "^2.2.4",
     "@speechify/api": "^1.0.0",
     "axios": "^1.9.0",
     "radix-ui": "^1.4.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-media-recorder": "^1.7.1",
-    "react-router-dom": "^7.6.0"
+    "react-router-dom": "^7.6.0",
+    "react-select": "^5.10.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
