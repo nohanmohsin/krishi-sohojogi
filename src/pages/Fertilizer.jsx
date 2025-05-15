@@ -124,7 +124,7 @@ applicationAmount: 20`,
               style={{ width: "40px", height: "40px", display: "inline-block" }}
             />
           </div>
-          <img src={dupeChart} alt="" width={100} />
+          <img src={dupeChart} alt="" width={"100%"} />
           <section className="recommended-fertilizer-section">
             <h3>প্রয়োজনীয় সার</h3>
             <h2>
